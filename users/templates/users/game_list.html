@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+    a {
+        text-decoration: none;
+        color: black;
+    }
+
+    a:hover {
+        color: blue;
+    }
+</style>
+    <title>All Games</title>
+</head>
+<body>
+<form method="GET">
+    <input type="text" name="q" placeholder="Search games..." value="{{ query }}">
+    <button type="submit">Search</button>
+</form>
+
+<br>
+<h2>🔥 Popular Games</h2>
+
+<ul>
+{% for game in popular_games %}
+<li>{{ game.name }} ({{ game.total_players }} players)</li>
+{% endfor %}
+</ul>
+
+<hr>
+
+<h2>All Games</h2>
+
+{% if games %}
+    {% for game in games %}
+        <hr>
+        {% if game.image %}
+           <img src="{{ game.image.url }}" width="200">
+        {% endif %}
+        <h3>
+             <a href="{% url 'game_detail' game.id %}">
+                 {{ game.name }}
+             </a>
+        </h3>
+        
+        <p><strong>Category:</strong> {{ game.category }}</p>
+        <p>{{ game.description }}</p>
+        <p><strong>Players Registered:</strong> {{ game.gameregistration_set.count }}</p>
+        <p><small>Added by: {{ game.created_by.username }}</small></p>
+    {% endfor %}
+{% else %}
+    <p>No games available.</p>
+{% endif %}
+
+<a href="{% url 'my_games' %}">My Registered Games</a>
+<br><br>
+
+</body>
+</html>

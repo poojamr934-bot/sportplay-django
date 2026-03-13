@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ game.name }}</title>
+</head>
+<body>
+
+<h2>{{ game.name }}</h2>
+
+<p><strong>Category:</strong> {{ game.category }}</p>
+
+<p><strong>Description:</strong></p>
+<p>{{ game.description }}</p>
+<br>
+<br>
+
+{% if registered %}
+    <p style="color:green;"><strong>You have already registered for this game.</strong></p>
+{% else %}
+    <a href="{% url 'register_game' game.id %}">
+        <button>Register for this Game</button>
+    </a>
+{% endif %}
+
+
+<p><strong>Added by:</strong> {{ game.created_by.username }}</p>
+
+<br>
+<a href="{% url 'game_list' %}">Back to Games</a>
+
+</body>
+</html>

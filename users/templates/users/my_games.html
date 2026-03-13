@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Registered Games</title>
+</head>
+<body>
+ <h2>Welcome {{ request.user.username }}</h2>
+<h3>Your Registered Games</h3>
+
+
+{% if registrations %}
+<ul>
+{% for reg in registrations %}
+
+<li>
+    {{ reg.game.name }}
+
+    <a href="{% url 'cancel_registration' reg.id %}">
+        Cancel
+    </a>
+
+</li>
+
+{% endfor %}
+</ul>
+
+{% else %}
+<p>You have not registered for any games.</p>
+{% endif %}
+
+<br>
+<a href="{% url 'game_list' %}">Back to Games</a>
+
+</body>
+</html>
